@@ -213,12 +213,12 @@ static int ltq_pci_probe(struct platform_device *pdev)
 
 	pci_clear_flags(PCI_PROBE_ONLY);
 
-	res_bridge = platform_get_resource(pdev, IORESOURCE_MEM, 1);
+	res_bridge = platform_get_resource_byname(pdev, IORESOURCE_MEM, "ctrl");
 	ltq_pci_membase = devm_ioremap_resource(&pdev->dev, res_bridge);
 	if (IS_ERR(ltq_pci_membase))
 		return PTR_ERR(ltq_pci_membase);
 
-	res_cfg = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+	res_cfg = platform_get_resource_byname(pdev, IORESOURCE_MEM, "config");
 	ltq_pci_mapped_cfg = devm_ioremap_resource(&pdev->dev, res_cfg);
 	if (IS_ERR(ltq_pci_mapped_cfg))
 		return PTR_ERR(ltq_pci_mapped_cfg);

@@ -99,8 +99,9 @@
 			bus-range = <0x0 0x0>;
 			ranges = <0x2000000 0 0x8000000 0x8000000 0 0x2000000	/* pci memory */
 				  0x1000000 0 0x00000000 0xae00000 0 0x200000>; /* io space */
-			reg = <0x7000000 0x8000		/* config space */
-				0xe105400 0x400>;	/* pci bridge */
+
+			reg = <0x7000000 0x8000>, <0xe105400 0x400>;
+			reg-names = "config", "ctrl";
 
 			resets = <&reset0 13 13>;
 			reset-names = "pci";
