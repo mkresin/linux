@@ -207,6 +207,7 @@ static int ltq_pci_startup(struct platform_device *pdev)
 static int ltq_pci_probe(struct platform_device *pdev)
 {
 	struct resource *res_cfg, *res_bridge;
+	int ret;
 
 	pci_clear_flags(PCI_PROBE_ONLY);
 
@@ -220,7 +221,9 @@ static int ltq_pci_probe(struct platform_device *pdev)
 	if (IS_ERR(ltq_pci_mapped_cfg))
 		return PTR_ERR(ltq_pci_mapped_cfg);
 
-	ltq_pci_startup(pdev);
+	ret = ltq_pci_startup(pdev);
+	if (ret < 0)
+		return ret;
 
 	pci_load_of_ranges(&pci_controller, pdev->dev.of_node);
 	register_pci_controller(&pci_controller);
