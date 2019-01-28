@@ -356,7 +356,7 @@ static void clkdev_add_pci(void)
 	struct clk *clk_ext = kzalloc(sizeof(struct clk), GFP_KERNEL);
 
 	/* main pci clock */
-	clk->cl.dev_id = "17000000.pci";
+	clk->cl.dev_id = "1e105400.pci";
 	clk->cl.con_id = NULL;
 	clk->cl.clk = clk;
 	clk->rate = CLOCK_33M;
@@ -368,7 +368,7 @@ static void clkdev_add_pci(void)
 	clkdev_add(&clk->cl);
 
 	/* use internal/external bus clock */
-	clk_ext->cl.dev_id = "17000000.pci";
+	clk_ext->cl.dev_id = "1e105400.pci";
 	clk_ext->cl.con_id = "external";
 	clk_ext->cl.clk = clk_ext;
 	clk_ext->enable = pci_ext_enable;
