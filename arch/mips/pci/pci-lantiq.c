@@ -16,6 +16,8 @@
 #include <linux/of_gpio.h>
 #include <linux/of_irq.h>
 #include <linux/of_pci.h>
+#include <linux/reset.h>
+#include <linux/device.h>
 
 #include <asm/addrspace.h>
 
@@ -95,6 +97,12 @@ static int ltq_pci_startup(struct platform_device *pdev)
 	struct device_node *node = pdev->dev.of_node;
 	const __be32 *req_mask, *bus_clk;
 	u32 temp_buffer;
+	int ret;
+
+	/* reset pci core */
+	ret = device_reset(&pdev->dev);
+	if (ret)
+		return dev_err_probe(&pdev->dev, ret, "PCI reset failed!\n");
 
 	/* get our clocks */
 	clk_pci = clk_get(&pdev->dev, NULL);
