@@ -140,7 +140,7 @@ static int ltq_pci_startup(struct platform_device *pdev)
 				"failed to request gpio %d\n", reset_gpio);
 			return ret;
 		}
-		gpio_direction_output(reset_gpio, 1);
+		gpio_direction_output(reset_gpio, 0);
 	}
 
 	/* enable auto-switching between PCI and EBU */
@@ -204,10 +204,10 @@ static int ltq_pci_startup(struct platform_device *pdev)
 
 	/* toggle reset pin */
 	if (gpio_is_valid(reset_gpio)) {
-		__gpio_set_value(reset_gpio, 0);
+		__gpio_set_value(reset_gpio, 1);
 		wmb();
 		mdelay(1);
-		__gpio_set_value(reset_gpio, 1);
+		__gpio_set_value(reset_gpio, 0);
 	}
 	return 0;
 }
